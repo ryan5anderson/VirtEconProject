@@ -1,38 +1,43 @@
 from transformers import pipeline
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 
-#Load the model
-qapipeline = pipeline("question-answering", model="bert-large-uncased-whole-word-masking-finetuned-squad")
+# Load the model
+qa_pipeline = pipeline("question-answering", model="bert-large-uncased-whole-word-masking-finetuned-squad")
 
-#Load your data
+# Load your data
 gdp_data = pd.read_csv("data//raw//GDP.csv")
 
-#Prepare the rawdata with clear chunking
-chunks = []
-chunk_size = 5  # Combine 5 rows into one chunk for context
-for i in range(0, len(gdp_data), chunk_size):
-    chunk = " ".join([f"{row['DATE']}: {row['GDP']} billion dollars" for _, row in gdp_data.iloc[i:i+chunk_size].iterrows()])
-    chunks.append(chunk)
+# Prepare the data as text for similarity checks
+gdp_data['text'] = gdp_data.apply(lambda row: f"{row['DATE']}: {row['GDP']} billion dollars", axis=1)
 
-#Example question
-question = "What was the GDP in 2001-04-01?"
+# Example question
+question = "What was the GDP in 1949-01-01?"
 
-#List to store all results
-results = []
+# Step 1: Perform similarity check
+# Create a TF-IDF matrix for the question and GDP data
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform([question] + gdp_data['text'].tolist())
 
-#Get the answer from each chunk
-for chunk in chunks:
-    print("CHUNK######## ", chunk)
-    result = qapipeline(question=question, context=chunk)
-    results.append(result)
-    print("result########### ", result)
+# Calculate cosine similarity between the question and each row
+similarities = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:]).flatten()
 
-#Sort results by score in descending order
-sorted_results = sorted(results, key=lambda x: x['score'], reverse=True)
+# Add similarity scores to the dataframe
+gdp_data['similarity'] = similarities
 
-#Get top 10 results
-top_10_results = sorted_results[:10]
+# Sort data by similarity scores in descending order
+gdp_data_sorted = gdp_data.sort_values(by='similarity', ascending=False)
 
-#Print top 10 results
-for i, res in enumerate(top_10_results, start=1):
-    print(f"Top {i}: Answer = {res['answer']}, Score = {res['score']}")
+# Select the top 3 most similar rows for context
+top_context_rows = gdp_data_sorted.head(5)['text'].tolist()
+context = " ".join(top_context_rows)
+
+# Step 2: Pass the best context into the QA model
+result = qa_pipeline(question=question, context=context)
+
+# Print the final result
+print(f"Question: {question}")
+print(f"Answer: {result['answer']}")
+print(f"Score: {result['score']}")
+print(f"Context used: {context}")
