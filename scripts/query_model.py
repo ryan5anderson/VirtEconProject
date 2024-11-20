@@ -13,7 +13,7 @@ def query_model(query, faiss_index_path, documents_path, embeddings_path):
     embeddings = np.load(embeddings_path)
 
     # Load a Hugging Face LLM (e.g., Falcon, BLOOM, GPT-NeoX)
-    llm = pipeline("text-generation", model="unsloth/Llama-3.2-1B-Instruct", device=-1)
+    llm = pipeline("text-generation", model="unsloth/Llama-3.2-3B-Instruct", device=-1)
 
     # Generate embedding for the query
     query_embedding = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2').encode([query])
@@ -27,6 +27,6 @@ def query_model(query, faiss_index_path, documents_path, embeddings_path):
 
     # Generate a response using the context
     input_text = f"Context:\n{context}\n\nQuery:\n{query}\n\nAnswer:"
-    response = llm(input_text, max_new_tokens=100, num_return_sequences=1)
+    response = llm(input_text, max_new_tokens=150, num_return_sequences=1)
 
     return response[0]['generated_text']
