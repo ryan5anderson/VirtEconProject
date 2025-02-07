@@ -312,4 +312,4 @@ Year: 2023, Quarter: 3, GDP: 27967.697, GDP Growth Rate: 1.8718054303199727, Eve
 Year: 2023, Quarter: 4, GDP: 28296.967, GDP Growth Rate: 1.1773225374974494, Event Name: nan, Event Description: nan
 Year: 2024, Quarter: 1, GDP: 28624.069, GDP Growth Rate: 1.1559613438429706, Event Name: nan, Event Description: nan
 Year: 2024, Quarter: 2, GDP: 29016.714, GDP Growth Rate: 1.3717302036967638, Event Name: nan, Event Description: nan
-Year: 2024, Quarter: 3, GDP: 29349.924, GDP Growth Rate: 1.1483381612404475, Event Name: nan, Event Description: nan
+Year: 2024, Quarter: 3, GDP: 29354.321, GDP Growth Rate: 1.1634914966594856, Event Name: nan, Event Description: nan
