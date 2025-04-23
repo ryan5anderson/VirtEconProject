@@ -20,7 +20,7 @@ app.post('/ask', async (req, res) => {
         {
             model: "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
             messages: [{ role: "user", content: question }],
-            max_tokens: 150,
+            max_tokens: 500,
             top_p: 0.9,
             temperature: 0.6
         }, 

@@ -40,21 +40,30 @@ function App() {
   return (
     <div className={`app-background ${darkMode ? 'dark-mode' : ''}`}>
         <div className="top-bar">
-        <div className="left-section">
-    <span className="app-title">VirtualEconomist</span>
-    <button className="new-chat-btn">+ New Chat</button>
-    <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
-        {darkMode ? '☀️' : '🌙'}
-    </button>
-</div>
+          <div className="left-section">
+              <span className="app-title">VirtualEconomist</span>
+              <button 
+                  className="new-chat-btn" 
+                  onClick={() => {
+                      setMessages([]);
+                      setHasInteracted(false);
+                      setQuestion("");
+                  }}
+              >
+                  + New Chat
+              </button>
+              <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
+                  {darkMode ? '☀️' : '🌙'}
+              </button>
+          </div>
 
-            <div className="right-section">
-                <img 
-                    src="https://pilbox.themuse.com/image.png?url=https%3A%2F%2Fassets.themuse.com%2Fuploaded%2Fcompanies%2F15000185%2Fsmall_logo.png%3Fv%3DNone&h=630&mode=fill&prog=1&w=1200" 
-                    alt="Federal Reserve" 
-                    className="fed-logo"
-                />
-            </div>
+          <div className="right-section">
+              <img 
+                  src="https://pilbox.themuse.com/image.png?url=https%3A%2F%2Fassets.themuse.com%2Fuploaded%2Fcompanies%2F15000185%2Fsmall_logo.png%3Fv%3DNone&h=630&mode=fill&prog=1&w=1200" 
+                  alt="Federal Reserve" 
+                  className="fed-logo"
+              />
+          </div>
         </div>
 
         <div className={`chat-container ${hasInteracted ? 'active' : 'centered'}`}>
