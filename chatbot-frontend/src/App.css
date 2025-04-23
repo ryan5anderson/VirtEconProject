@@ -91,11 +91,13 @@ body, html {
 
 .chat-container.centered {
   height: 100vh;
-  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  padding-top: 150px;
 }
+
 
 /* ===== Welcome Message ===== */
 .welcome-message {
@@ -107,11 +109,15 @@ body, html {
 
 /* ===== Chat Box ===== */
 .chat-box {
+  padding-top: 80px;   /* Header space */
+  padding-bottom: 120px; /* Bottom bar space */
+  width: 60%;
+  max-width: 900px;
+  margin: auto;
   flex-grow: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
 }
 
@@ -119,10 +125,10 @@ body, html {
 .message {
   width: 100%;
   max-width: 800px;
-  display: flex;
   margin: 8px 0;
   padding: 0 10px;
 }
+
 
 .user {
   justify-content: flex-end;
@@ -140,7 +146,7 @@ body, html {
 }
 
 .bot {
-  justify-content: flex-start;
+  display: block;
 }
 
 .bot > div {
@@ -153,32 +159,74 @@ body, html {
   text-align: left;
 }
 
+.bot p {
+  margin: 10px 0;
+}
+
+.bot ol, .bot ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.bot li {
+  margin-bottom: 8px;
+  list-style-position: outside;
+}
+
+
+/* ===== Bottom Bar ===== */
+
+/* Default: Before interaction (let parent flexbox center it) */
 /* ===== Bottom Bar ===== */
 .bottom-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 16px;
+  background: #fefefe;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;   /* Fully rounded */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);  /* Soft shadow */
+}
+
+/* Center in middle BEFORE interaction */
+.app-background:not(.has-interacted) .bottom-bar {
+  flex-grow: 1;
+  justify-content: center;
+}
+
+
+/* AFTER interaction: Stick to bottom */
+.bottom-bar.fixed {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 700px;
   background: #fff;
-  padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
   z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-grow: 0;  /* Disable flex-grow once fixed */
 }
+
+
+
+
+
 
 /* Input */
 .input-container {
-  width: 90%;
-  background: #f9f9f9;
-  border: 1px solid #dcdcdc;
-  border-radius: 25px;
-  padding: 12px 20px;
   display: flex;
   align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background: #fafafa;
+  border-radius: 999px;
+  border: 1px solid #ddd;
 }
 
 .input-container input {
@@ -187,33 +235,38 @@ body, html {
   background: transparent;
   font-size: 16px;
   padding: 10px;
-  outline: none;
+  color: #333;
+}
+
+.input-container input::placeholder {
+  color: #aaa;   /* Lighter placeholder */
 }
 
 .input-container button {
-  background: #007bff;
+  background: #4a90e2;
   border: none;
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.3s;
+  margin-left: 10px;
 }
 
 .input-container button:hover {
-  background: #0056b3;
+  background: #357ABD;
 }
 
 /* Disclaimer */
 .disclaimer {
-  font-size: 12px;
-  color: #777;
   margin-top: 8px;
+  font-size: 12px;
+  color: #999;
   text-align: center;
 }
 
@@ -236,9 +289,6 @@ body, html {
   box-shadow: 0 2px 5px rgba(255,255,255,0.05);
 }
 
-.dark-mode .bot > div {
-  color: #e0e0e0;
-}
 
 .dark-mode .user > div {
   background: #333;
@@ -257,6 +307,9 @@ body, html {
 .dark-mode .disclaimer {
   color: #aaa;
 }
+.dark-mode .bot > div {
+  color: #e0e0e0;
+}
 
 /* ===== Markdown Formatting for Bot ===== */
 .message.bot strong {
@@ -270,4 +323,15 @@ body, html {
 
 .message.bot li {
   margin-bottom: 5px;
+}
+
+
+.centered-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  gap: 20px;
 }
