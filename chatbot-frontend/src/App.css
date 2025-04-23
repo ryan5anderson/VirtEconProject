@@ -347,6 +347,15 @@ body, html {
   outline: none;
 }
 
+.chat-box {
+  overflow-y: auto;
+  scrollbar-width: none;      
+  -ms-overflow-style: none;   
+}
+
+.chat-box::-webkit-scrollbar {
+  display: none;              
+}
 
 
 
