@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 import "./App.css";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       if (!question.trim()) return;
 
       setHasInteracted(true);
-      const newMessage = { type: "user", text: question, timestamp: new Date() };
+      const newMessage = { type: "user", text: question };
       setMessages(prev => [...prev, newMessage]);
 
       setIsLoading(true);
@@ -22,12 +23,11 @@ function App() {
           const res = await axios.post("http://localhost:5001/ask", { question });
           const botMessage = { 
               type: "bot", 
-              text: res.data.generated_text || "No response text.", 
-              timestamp: new Date() 
+              text: res.data.generated_text || "No response text."
           };
           setMessages(prev => [...prev, botMessage]);
       } catch {
-          setMessages(prev => [...prev, { type: "bot", text: "Error fetching response.", timestamp: new Date() }]);
+          setMessages(prev => [...prev, { type: "bot", text: "Error fetching response." }]);
       }
       setIsLoading(false);
       setQuestion("");
@@ -39,6 +39,7 @@ function App() {
 
   return (
     <div className={`app-background ${darkMode ? 'dark-mode' : ''}`}>
+        {/* Fixed Header */}
         <div className="top-bar">
           <div className="left-section">
               <span className="app-title">VirtualEconomist</span>
@@ -66,6 +67,7 @@ function App() {
           </div>
         </div>
 
+        {/* Chat Section */}
         <div className={`chat-container ${hasInteracted ? 'active' : 'centered'}`}>
             {!hasInteracted && (
                 <div className="welcome-message">
@@ -77,14 +79,21 @@ function App() {
                 <div className="chat-box">
                     {messages.map((msg, index) => (
                         <div key={index} className={`message ${msg.type}`}>
-                            <div>{msg.text}</div>
+                            {msg.type === 'bot' ? (
+                                <ReactMarkdown>{msg.text}</ReactMarkdown>
+                            ) : (
+                                <div>{msg.text}</div>
+                            )}
                         </div>
                     ))}
                     {isLoading && <div className="typing-indicator">VirtualEconomist is typing...</div>}
                     <div ref={chatEndRef}></div>
                 </div>
             )}
+        </div>
 
+        {/* Fixed Bottom Bar */}
+        <div className="bottom-bar">
             <div className="input-container">
                 <input
                     type="text"
