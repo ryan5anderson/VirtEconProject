@@ -15,9 +15,10 @@ body, html {
 
 /* ===== App Background ===== */
 .app-background {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   height: 100vh;
 }
 
@@ -183,37 +184,43 @@ body, html {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 750px;
-  margin: 0 auto;
-  padding: 16px;
-  background: #fefefe;
+  max-width: 500px;
+  padding: 10px 16px;
+  background: #fff;
   border: 1px solid #e0e0e0;
-  border-radius: 999px;   /* Fully rounded */
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);  /* Soft shadow */
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;   /* Small gap from absolute bottom */
 }
+
 
 /* Center in middle BEFORE interaction */
 .app-background:not(.has-interacted) .bottom-bar {
-  flex-grow: 1;
-  justify-content: center;
+  padding: 0;
+  border: none;
+  box-shadow: none;
 }
+
 
 
 /* AFTER interaction: Stick to bottom */
 .bottom-bar.fixed {
   position: fixed;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 700px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 600px;
   background: #fff;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 10px;
   z-index: 999;
-  flex-grow: 0;  /* Disable flex-grow once fixed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-
 
 
 
@@ -223,19 +230,20 @@ body, html {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 10px 20px;
+  padding: 8px 16px;
   background: #fafafa;
   border-radius: 999px;
   border: 1px solid #ddd;
 }
 
+
+/* Input Field */
 .input-container input {
   flex: 1;
   border: none;
   background: transparent;
-  font-size: 16px;
-  padding: 10px;
-  color: #333;
+  font-size: 15px;
+  padding: 10px 12px;
 }
 
 .input-container input::placeholder {
@@ -246,16 +254,14 @@ body, html {
   background: #4a90e2;
   border: none;
   color: white;
-  font-size: 20px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  width: 42px;
-  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .input-container button:hover {
@@ -264,8 +270,8 @@ body, html {
 
 /* Disclaimer */
 .disclaimer {
-  margin-top: 8px;
-  font-size: 12px;
+  margin-top: 6px;
+  font-size: 11px;
   color: #999;
   text-align: center;
 }
@@ -335,3 +341,12 @@ body, html {
   text-align: center;
   gap: 20px;
 }
+
+
+.input-container input:focus {
+  outline: none;
+}
+
+
+
+
