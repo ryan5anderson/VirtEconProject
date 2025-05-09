@@ -1,0 +1,361 @@
+/* ===== Global Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== App Background ===== */
+.app-background {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+}
+
+/* ===== Top Bar ===== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.new-chat-btn {
+  padding: 8px 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  transition: background 0.3s;
+  max-height: 40px;
+}
+
+.new-chat-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.fed-logo {
+  height: 150px;
+  min-width: 130px;
+  object-fit: contain;
+}
+
+/* ===== Chat Container ===== */
+.chat-container {
+  padding-top: 80px;   /* Space for fixed header */
+  padding-bottom: 120px; /* Space for bottom bar */
+  width: 60%;
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.chat-container.active {
+  justify-content: flex-start;
+}
+
+.chat-container.centered {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* ===== Welcome Message ===== */
+.welcome-message {
+  text-align: center;
+  color: #999;
+  font-size: 20px;
+  margin-bottom: 100px;
+}
+
+/* ===== Chat Box ===== */
+.chat-box {
+  padding-top: 80px;   /* Header space */
+  padding-bottom: 120px; /* Bottom bar space */
+  width: 60%;
+  max-width: 900px;
+  margin: auto;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== Messages ===== */
+.message {
+  width: 100%;
+  max-width: 800px;
+  margin: 8px 0;
+  padding: 0 10px;
+}
+
+
+.user {
+  justify-content: flex-end;
+  display: flex;
+}
+
+.user > div {
+  background: #f0f0f0;
+  color: #333;
+  padding: 12px 18px;
+  border-radius: 18px;
+  max-width: 50%;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.bot {
+  display: block;
+}
+
+.bot > div {
+  background: transparent;
+  color: #000;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 100%;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.bot p {
+  margin: 10px 0;
+}
+
+.bot ol, .bot ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.bot li {
+  margin-bottom: 8px;
+  list-style-position: outside;
+}
+
+
+/* ===== Bottom Bar ===== */
+
+/* Default: Before interaction (let parent flexbox center it) */
+/* ===== Bottom Bar ===== */
+.bottom-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;   /* Small gap from absolute bottom */
+}
+
+
+/* Center in middle BEFORE interaction */
+.app-background:not(.has-interacted) .bottom-bar {
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+
+
+/* AFTER interaction: Stick to bottom */
+.bottom-bar.fixed {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 600px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 10px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
+/* Input */
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 180%;
+  padding: 8px 16px;
+  background: #fafafa;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+}
+
+
+/* Input Field */
+.input-container input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  padding: 10px 12px;
+}
+
+.input-container input::placeholder {
+  color: #aaa;   /* Lighter placeholder */
+}
+
+.input-container button {
+  background: #4a90e2;
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.input-container button:hover {
+  background: #357ABD;
+}
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #999;
+  text-align: center;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  font-size: 14px;
+  color: #aaa;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+/* ===== Dark Mode ===== */
+.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.dark-mode .top-bar {
+  background: #1e1e1e;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+}
+
+
+.dark-mode .user > div {
+  background: #333;
+  color: #fff;
+}
+
+.dark-mode .input-container {
+  background: #1e1e1e;
+  border-color: #333;
+}
+
+.dark-mode .bottom-bar {
+  background: #1e1e1e;
+}
+
+.dark-mode .disclaimer {
+  color: #aaa;
+}
+.dark-mode .bot > div {
+  color: #e0e0e0;
+}
+
+/* ===== Markdown Formatting for Bot ===== */
+.message.bot strong {
+  font-weight: bold;
+}
+
+.message.bot ol {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.message.bot li {
+  margin-bottom: 5px;
+}
+
+
+.centered-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  gap: 20px;
+}
+
+
+.input-container input:focus {
+  outline: none;
+}
+
+.chat-box {
+  overflow-y: auto;
+  scrollbar-width: none;      
+  -ms-overflow-style: none;   
+}
+
+.chat-box::-webkit-scrollbar {
+  display: none;              
+}
+
+
+
