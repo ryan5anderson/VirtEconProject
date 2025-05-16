@@ -3,9 +3,8 @@ import json
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer
 from together import Together
-import boto3
 import requests
-from requests_aws4auth import AWS4Auth
+from requests.auth import HTTPBasicAuth
 from urllib.parse import urljoin
 
 # ----------------------------
@@ -13,15 +12,15 @@ from urllib.parse import urljoin
 # ----------------------------
 client = Together(api_key="7c250b03ffca377edb3b61d3d11bea4c1f2ab4c7f156851e8b6ff5844916f719")
 
-region = 'us-east-1'
 opensearch_host = 'search-vector-db-muujojc433yrk6olm7ccipzsdi.us-east-1.es.amazonaws.com'
 index_name = 'rag-index-embeddings'
 vector_field = 'embedding'
 text_field = 'chunk_text'
 
-session = boto3.Session()
-credentials = session.get_credentials()
-awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, 'es', session_token=credentials.token)
+# OpenSearch Basic Auth Credentials
+master_username = 'af978'
+master_password = 'VirtEcon2!'
+auth = HTTPBasicAuth(master_username, master_password)
 
 embedding_model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
 tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-mpnet-base-v2")
@@ -43,7 +42,7 @@ def search_opensearch_knn(embedding: list, k: int = 5) -> list:
         "_source": [text_field]
     }
     headers = {'Content-Type': 'application/json'}
-    response = requests.post(search_url, auth=awsauth, headers=headers, data=json.dumps(query_body))
+    response = requests.post(search_url, auth=auth, headers=headers, data=json.dumps(query_body))
     if response.status_code != 200:
         raise Exception(f"OpenSearch query failed: {response.status_code} {response.text}")
     hits = response.json().get('hits', {}).get('hits', [])
