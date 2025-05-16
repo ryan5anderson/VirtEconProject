@@ -24,7 +24,8 @@ function App() {
           const res = await axios.post("http://chatserver-env-2.eba-ixqbrx8z.us-east-1.elasticbeanstalk.com/ask", { question });
           const botMessage = { 
               type: "bot", 
-              text: res.data.generated_text || "No response text."
+              text: res.data.generated_text || res.data.answer || "No response text."
+
           };
           setMessages(prev => [...prev, botMessage]);
       } catch {
