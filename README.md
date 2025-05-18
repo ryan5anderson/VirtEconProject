@@ -1,18 +1,31 @@
 # VirtEcon Project - Local Development Setup (Mac)
 
-## 🚀 Prerequisites
+## Project Overview
+
+**One-Liner**
+The Virtual Economist is a private chatbot for the Federal Reserve’s clients to query its economic data.
+
+**Abstract**
+The Virtual Economist Chatbot project aims to create an interactive chatbot that delivers economic insights, forecasts, and custom reports using data from sources such as FRED, BEA, BLS, and SEC EDGAR. Using NLP models from Hugging Face and cloud infrastructure on AWS, the chatbot provides users with an intuitive interface to access timely, complex economic analyses.
+
+**Description**
+The Virtual Economist Chatbot aggregates and analyzes economic data to handle client queries on trends, policies, and custom economic scenarios. Built with a React frontend and Python-powered backend, the system delivers summarizations, forecasts, and data-driven reports. The project was developed as part of Drexel University’s Senior Design program in partnership with the Federal Reserve.
+
+---
+
+## Prerequisites
 
 Make sure you have the following installed:
 
 * **Homebrew**: [https://brew.sh/](https://brew.sh/)
-* **Python 3.x**:
-  *Install with:*
+* **Python 3.x**
+  Install with:
 
   ```bash
   brew install python
   ```
-* **Node.js & npm**:
-  *Install with:*
+* **Node.js & npm**
+  Install with:
 
   ```bash
   brew install node
@@ -20,14 +33,14 @@ Make sure you have the following installed:
 
 ---
 
-## 📦 Project Structure
+## Project Structure
 
 * **`chatbot-backend`**: Node.js server that connects to AWS OpenSearch and Together AI.
 * **`chatbot-frontend`**: React app for interacting with the chatbot.
 
 ---
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -37,7 +50,7 @@ cd /path/to/VirtEconProject
 
 ---
 
-## 🖥️ Starting the Backend (Python + Node)
+## Starting the Backend (Python + Node)
 
 ### Step 1: Navigate to Backend Directory
 
@@ -85,7 +98,7 @@ node server.js
 
 ---
 
-## 🖼️ Starting the Frontend (React)
+## Starting the Frontend (React)
 
 ### Step 1: Open New Terminal Tab or Window
 
@@ -110,10 +123,45 @@ npm start
 
 ---
 
-## ✅ Testing Your Setup
+## Querying Without the Frontend (Optional)
+
+You can interact with the backend API directly using tools like `curl` or Postman without starting the frontend.
+
+### Example `curl` Command:
+
+```bash
+curl -X POST http://localhost:8080/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question": "Hello"}'
+```
+
+*Expected Response:*
+
+```json
+{"answer":"Hello, how can I assist you today?"}
+```
+
+This is useful for quickly testing the backend or integrating with other tools and services.
+
+---
+
+## OpenSearch (RAG) Access Notes
+
+The chatbot uses a Retrieval-Augmented Generation (RAG) architecture with **AWS OpenSearch** to look up relevant economic context before answering.
+
+To enable RAG functionality:
+
+* You must have access to a configured **AWS OpenSearch cluster** containing pre-loaded embeddings.
+* You must set **valid AWS environment variables** as shown earlier in the setup, or switch to Basic Auth if configured.
+
+If no OpenSearch connection is configured or accessible, the chatbot will not be able to retrieve additional context and may return fallback responses.
+
+---
+
+## Testing Your Setup
 
 1. Open [http://localhost:3000](http://localhost:3000) in your browser.
 2. Submit a question to the chatbot.
 3. You should see a response coming from the backend.
 
-
+---
