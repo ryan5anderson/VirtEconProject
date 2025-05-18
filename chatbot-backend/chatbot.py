@@ -5,7 +5,6 @@ from transformers import AutoTokenizer
 from together import Together
 import requests
 from requests.auth import HTTPBasicAuth
-from urllib.parse import urljoin
 
 # ----------------------------
 # 1. CONFIGURATION
@@ -32,7 +31,7 @@ def embed_query_locally(query: str) -> list:
     embedding = embedding_model.encode(query, normalize_embeddings=True)
     return embedding.tolist()
 
-def search_opensearch_knn(embedding: list, k: int = 5) -> list:
+def search_opensearch_knn(embedding: list, k: int) -> list:
     search_url = f"https://{opensearch_host}/{index_name}/_search"
     query_body = {
         "size": k,
@@ -86,7 +85,8 @@ def call_together_llm(prompt: str) -> str:
     )
     return response.choices[0].message.content
 
-def rag_query_pipeline(user_query: str, k: int = 5):
+def rag_query_pipeline(user_query: str):
+    k = 25  # Fixed number of chunks
     embedding = embed_query_locally(user_query)
     chunks = search_opensearch_knn(embedding, k)
     chunks = deduplicate_chunks(chunks)
