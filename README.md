@@ -1,83 +1,119 @@
-VirtEcon Project - Local Dev Setup (Mac)
-Prerequisites
-Homebrew (https://brew.sh/)
+# VirtEcon Project - Local Development Setup (Mac)
 
-Python 3.x (Install via Homebrew if missing)
+## 🚀 Prerequisites
 
-Node.js and npm (Install via Homebrew if missing)
+Make sure you have the following installed:
 
-What This Project Includes
-chatbot-backend:
-Node.js server that connects to AWS OpenSearch and Together AI.
+* **Homebrew**: [https://brew.sh/](https://brew.sh/)
+* **Python 3.x**:
+  *Install with:*
 
-chatbot-frontend:
-React frontend that sends questions to the backend.
+  ```bash
+  brew install python
+  ```
+* **Node.js & npm**:
+  *Install with:*
 
-Setup Instructions
-1. Clone & Navigate
-bash
-Copy
-Edit
+  ```bash
+  brew install node
+  ```
+
+---
+
+## 📦 Project Structure
+
+* **`chatbot-backend`**: Node.js server that connects to AWS OpenSearch and Together AI.
+* **`chatbot-frontend`**: React app for interacting with the chatbot.
+
+---
+
+## 🛠️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
 cd /path/to/VirtEconProject
-Starting the Backend (Python + Node)
-1. Go to Backend Directory
-bash
-Copy
-Edit
+```
+
+---
+
+## 🖥️ Starting the Backend (Python + Node)
+
+### Step 1: Navigate to Backend Directory
+
+```bash
 cd chatbot-backend
-2. Create and Activate Python Virtual Environment
-bash
-Copy
-Edit
+```
+
+### Step 2: Create and Activate Virtual Environment
+
+```bash
 python3 -m venv venv
 source venv/bin/activate
-3. Install Python Dependencies
-bash
-Copy
-Edit
+```
+
+### Step 3: Install Python Dependencies
+
+```bash
 pip install -r requirements.txt
-4. Set AWS Environment Variables
-bash
-Copy
-Edit
+```
+
+### Step 4: Set AWS Environment Variables
+
+```bash
 export AWS_ACCESS_KEY_ID="YOUR_ACCESS_KEY_ID"
 export AWS_SECRET_ACCESS_KEY="YOUR_SECRET_ACCESS_KEY"
 export AWS_DEFAULT_REGION="us-east-1"
-Replace YOUR_ACCESS_KEY_ID and YOUR_SECRET_ACCESS_KEY with valid AWS credentials.
+```
 
-5. Install Node Dependencies
-bash
-Copy
-Edit
+*Replace with valid AWS credentials.*
+
+### Step 5: Install Node.js Dependencies
+
+```bash
 npm install
-6. Start Node Server
-bash
-Copy
-Edit
+```
+
+### Step 6: Start the Node Server
+
+```bash
 node server.js
-The backend will be available at http://localhost:8080.
+```
 
-Starting the Frontend (React App)
-1. Open New Terminal Tab or Window
-bash
-Copy
-Edit
+*Backend is now running at:*
+[http://localhost:8080](http://localhost:8080)
+
+---
+
+## 🖼️ Starting the Frontend (React)
+
+### Step 1: Open New Terminal Tab or Window
+
+```bash
 cd /path/to/VirtEconProject/chatbot-frontend
-2. Install Frontend Dependencies
-bash
-Copy
-Edit
+```
+
+### Step 2: Install Frontend Dependencies
+
+```bash
 npm install
-3. Start Frontend
-bash
-Copy
-Edit
+```
+
+### Step 3: Start the React App
+
+```bash
 npm start
-The frontend will be available at http://localhost:3000.
+```
 
-Testing Your Setup
-Open http://localhost:3000 in your browser.
+*Frontend is now running at:*
+[http://localhost:3000](http://localhost:3000)
 
-Submit a question to the chatbot.
+---
 
-You should see a response coming from the backend.
+## ✅ Testing Your Setup
+
+1. Open [http://localhost:3000](http://localhost:3000) in your browser.
+2. Submit a question to the chatbot.
+3. You should see a response coming from the backend.
+
+
