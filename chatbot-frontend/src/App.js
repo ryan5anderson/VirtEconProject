@@ -21,7 +21,7 @@ function App() {
       setIsLoading(true);
       try {
           //const res = await axios.post("http://localhost:5001/ask", { question });
-          const res = await axios.post("http://chatserver-env-2.eba-ixqbrx8z.us-east-1.elasticbeanstalk.com/ask", { question });
+          const res = await axios.post("http://localhost:8080/ask", { question });
           const botMessage = { 
               type: "bot", 
               text: res.data.generated_text || res.data.answer || "No response text."
