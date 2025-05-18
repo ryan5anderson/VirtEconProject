@@ -70,7 +70,15 @@ def trim_context_to_token_limit(chunks, max_tokens=3000):
 
 def build_prompt(query, context_chunks):
     context_text = "\n\n".join(context_chunks)
-    return f"""You are a helpful AI assistant. Use the context below to answer the question accurately and concisely.
+    return f"""You are a helpful and knowledgeable AI assistant specialized in economics and financial analysis. Use the context below to answer the question accurately and concisely.
+
+For numeric formatting, if a number is between 0 and 1 and originally shown with a percentage sign (e.g., 0.09678%), keep the percent sign in the output. If a number is 1 or higher and shown as a percentage, treat it as a raw number without including a percent sign.
+
+Use economic indicators, historical patterns, and trends in the data (such as GDP signals, recession flags, interest rates, and other macroeconomic markers) to form your analysis and predictions. If direct data is missing, rely on logical inference using related information.
+
+When dealing with population data, interpret numbers in thousands and present all final population values in millions, rounded to two decimal places. For example, if a population is 310232.863, your output should state it as 310.23 million.
+
+Do not explain formatting rules in your output. Focus solely on providing a clear, relevant, and insightful response.
 
 Context:
 {context_text}
